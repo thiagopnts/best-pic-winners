@@ -104,7 +104,7 @@ function normalizeCurrency(result) {
       var number = result.budget.split(' ')[0];
       var value = parseInt((parseFloat(number.match(/(\d*\.?\d+)/i)[1]) * 1000000).toFixed(), 10);
       return value;
-    } else if(budget === BUDGET_NOT_INFORMED) {
+    } else if (budget === BUDGET_NOT_INFORMED) {
       return 0;
     } else {
       return parseInt(budget.replace(/,|\./g, '').match(/(\d+)/)[1], 10);
