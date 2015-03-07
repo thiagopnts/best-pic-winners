@@ -98,10 +98,10 @@ function normalizeCurrency(result) {
   var budget = result.budget;
   logger.debug('Normalizing', budget);
   var currency = budget.match(/([u?s?\$?]|£?)/i)[1];
-  var value = function(result) {
+  var value = function() {
     var isUnabbreviated = budget.indexOf('million') >= 0;
     if (isUnabbreviated) {
-      var number = result.budget.split(' ')[0];
+      var number = budget.split(' ')[0];
       var value = parseInt((parseFloat(number.match(/(\d*\.?\d+)/i)[1]) * 1000000).toFixed(), 10);
       return value;
     } else if (budget === BUDGET_NOT_INFORMED) {
@@ -109,7 +109,7 @@ function normalizeCurrency(result) {
     } else {
       return parseInt(budget.replace(/,|\./g, '').match(/(\d+)/)[1], 10);
     }
-  }(result);
+  }();
 
   return $.extend(result, {normalizedBudget: currency === '£' ? value * 1.5 : value});
 }
